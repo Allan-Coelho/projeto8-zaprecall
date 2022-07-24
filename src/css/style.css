@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;700&family=Righteous&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  font-family: "Recursive", sans-serif;
+}
+
+.root {
+  background-color: #fb6b6b;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  min-height: 100vh;
+}
+
+.logo-title {
+  font-family: "Righteous", cursive;
+  font-weight: 400;
+  font-size: 36px;
+  text-align: center;
+  color: #fff;
+}
