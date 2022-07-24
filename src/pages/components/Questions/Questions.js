@@ -1,5 +1,7 @@
 import "./style.css";
-import QuestionTitle from "../QuestionTitle/QuestionTitle";
+import QuestionClosed from "../QuestionClosed/QuestionClosed";
+import QuestionOpen from "../QuestionOpen/QuestionOpen";
+import React from "react";
 const recalls = [
   [
     {
@@ -25,10 +27,38 @@ const recalls = [
   ],
 ];
 
-function Question({ question, answer, titleStatus }) {
+function sortRecalls() {
+  recalls.map((recall) => {
+    return recall.sort(function (a, b) {
+      return 0.5 - Math.random();
+    });
+  });
+}
+
+sortRecalls();
+
+function Question({ question, answer, titleStatus, index }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function openQuestion() {
+    if (isOpen === false) {
+      setIsOpen(true);
+    }
+  }
+
   return (
-    <div className="question closed">
-      {<QuestionTitle title={"pão"} titleStyle={titleStatus} />}
+    <div
+      className={`question ${isOpen ? "open" : "closed"}`}
+      onClick={openQuestion}
+    >
+      {isOpen ? (
+        <QuestionOpen answer={answer} question={question} />
+      ) : (
+        <QuestionClosed
+          title={`Pergunta ${index + 1}`}
+          titleStyle={titleStatus}
+        />
+      )}
     </div>
   );
 }
@@ -44,6 +74,7 @@ export default function Questions() {
                 question={question.question}
                 answer={question.answer}
                 titleStatus={question.titleStatus}
+                index={index}
                 key={index}
               />
             );

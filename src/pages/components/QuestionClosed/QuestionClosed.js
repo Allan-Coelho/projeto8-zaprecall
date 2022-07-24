@@ -1,4 +1,4 @@
-export default function QuestionTitle({ title, titleStyle }) {
+export default function QuestionClosed({ title, titleStyle }) {
   const styles = {
     dontRemember: { color: "#FF3030", "text-decoration": "line-through" },
     remember: { color: "#2FBE34", "text-decoration": "line-through" },

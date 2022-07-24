@@ -1,22 +1,28 @@
 import logo from "../../assets/logo.png";
 import QuestionPage from "../QuestionPage/QuestionPage";
 import "./style.css";
-import ReactDOM from "react-dom";
+import React from "react";
 
 export default function LandingPage() {
+  const [isStarted, setIsStarted] = React.useState(false);
+
   function renderQuestionPage() {
-    ReactDOM.render(<QuestionPage />, document.querySelector(".root"));
+    setIsStarted(true);
   }
 
   return (
     <>
-      <div className="container">
-        <img className="large-logo" src={logo} alt="logo"></img>
-        <span className="logo-title">ZapRecall</span>
-        <div className="start-button" onClick={renderQuestionPage}>
-          Iniciar Recall!
+      {isStarted ? (
+        <QuestionPage />
+      ) : (
+        <div className="container">
+          <img className="large-logo" src={logo} alt="logo"></img>
+          <span className="logo-title">ZapRecall</span>
+          <div className="start-button" onClick={renderQuestionPage}>
+            Iniciar Recall!
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
