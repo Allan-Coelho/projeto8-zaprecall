@@ -2,46 +2,16 @@ import "./style.css";
 import QuestionClosed from "../QuestionClosed/QuestionClosed";
 import QuestionOpen from "../QuestionOpen/QuestionOpen";
 import React from "react";
-const recalls = [
-  [
-    {
-      question: "o que é pão 1",
-      answer: "pão é bom 1",
-      titleStatus: "unanswered",
-    },
-    {
-      question: "o que é pão 2",
-      answer: "pão é bom 2",
-      titleStatus: "dontRemember",
-    },
-    {
-      question: "o que é pão 3",
-      answer: "pão é bom 3",
-      titleStatus: "barelyRemember",
-    },
-    {
-      question: "o que é pão 4",
-      answer: "pão é bom 4",
-      titleStatus: "remember",
-    },
-  ],
-];
+import StatusBar from "../StatusBar/StatusBar";
 
-function sortRecalls() {
-  recalls.map((recall) => {
-    return recall.sort(function (a, b) {
-      return 0.5 - Math.random();
-    });
-  });
-}
-
-sortRecalls();
-
-function Question({ question, answer, titleStatus, index }) {
+const selectedRecallIndex = 0;
+function Question({ question, answer, setStatusBar, statusBar, index }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [titleStyle, setTitleStyle] = React.useState("unanswered");
+  const [isAnswer, setIsAnswer] = React.useState(false);
 
   function openQuestion() {
-    if (isOpen === false) {
+    if (isOpen === false && isAnswer === false) {
       setIsOpen(true);
     }
   }
@@ -52,18 +22,31 @@ function Question({ question, answer, titleStatus, index }) {
       onClick={openQuestion}
     >
       {isOpen ? (
-        <QuestionOpen answer={answer} question={question} />
+        <QuestionOpen
+          answer={answer}
+          question={question}
+          setTitleStyle={setTitleStyle}
+          setIsOpen={setIsOpen}
+          setIsAnswer={setIsAnswer}
+          statusBar={statusBar}
+          setStatusBar={setStatusBar}
+        />
       ) : (
         <QuestionClosed
           title={`Pergunta ${index + 1}`}
-          titleStyle={titleStatus}
+          titleStyle={titleStyle}
         />
       )}
     </div>
   );
 }
 
-export default function Questions() {
+export default function Questions({ recalls }) {
+  const [statusBar, setStatusBar] = React.useState({
+    length: recalls[selectedRecallIndex].length,
+    answers: [],
+  });
+
   return (
     <>
       <div className="question-container">
@@ -74,6 +57,8 @@ export default function Questions() {
                 question={question.question}
                 answer={question.answer}
                 titleStatus={question.titleStatus}
+                setStatusBar={setStatusBar}
+                statusBar={statusBar}
                 index={index}
                 key={index}
               />
@@ -81,6 +66,7 @@ export default function Questions() {
           })
         )}
       </div>
+      <StatusBar statusBar={statusBar} setStatusBar={setStatusBar} />
     </>
   );
 }

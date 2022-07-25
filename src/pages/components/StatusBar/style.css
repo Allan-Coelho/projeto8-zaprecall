@@ -1,0 +1,31 @@
+.status-bar-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  min-height: 70px;
+  width: 100vw;
+  background-color: white;
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  white-space: pre-line;
+  margin-top: 100px;
+  padding: 10px 10px;
+}
+
+.status-bar-container ion-icon {
+  width: 23px;
+  height: 23px;
+}
+
+.status-bar-container span {
+  
+  text-align: center;
+  line-height: 20px;
+}
+
+.bold {
+  font-weight: 700;
+}

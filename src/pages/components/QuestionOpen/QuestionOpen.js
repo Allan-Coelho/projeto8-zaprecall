@@ -2,14 +2,64 @@ import "./style.css";
 import littleArrow from "../../../assets/setinha.png";
 import React from "react";
 
-function QuestionOption({ option, setIsTurnedOver }) {
+function QuestionOption({
+  option,
+  setIsTurnedOver,
+  setTitleStyle,
+  setIsOpen,
+  setIsAnswer,
+  setStatusBar,
+  statusBar,
+}) {
+  function userAnswerHandler(event) {
+    const button = event.target;
+    const buttonValue = button.innerText;
+
+    if (buttonValue === "Zap!") {
+      setTitleStyle("remember");
+      setIsOpen(false);
+      setIsAnswer(true);
+      statusBar.answers.push("remember");
+    }
+
+    if (buttonValue === "Não lembrei") {
+      setTitleStyle("dontRemember");
+      setIsOpen(false);
+      setIsAnswer(true);
+      statusBar.answers.push("dontRemember");
+    }
+
+    if (buttonValue === "Quase não lembrei") {
+      setTitleStyle("barelyRemember");
+      setIsOpen(false);
+      setIsAnswer(true);
+      statusBar.answers.push("barelyRemember");
+    }
+    setStatusBar({ ...statusBar });
+  }
+
   switch (option) {
     case false:
       return (
         <div className="question-buttons">
-          <div className="remember-button">Zap!</div>
-          <div className="barely-remember-button">Quase não lembrei</div>
-          <div className="dont-remember-button">Não lembrei</div>
+          <div
+            className="remember-button"
+            onClick={(event) => userAnswerHandler(event)}
+          >
+            Zap!
+          </div>
+          <div
+            className="barely-remember-button"
+            onClick={(event) => userAnswerHandler(event)}
+          >
+            Quase não lembrei
+          </div>
+          <div
+            className="dont-remember-button"
+            onClick={(event) => userAnswerHandler(event)}
+          >
+            Não lembrei
+          </div>
         </div>
       );
     case true:
@@ -19,7 +69,6 @@ function QuestionOption({ option, setIsTurnedOver }) {
             src={littleArrow}
             alt="setinha"
             onClick={() => {
-              console.log("pão");
               setIsTurnedOver(false);
             }}
           />
@@ -41,9 +90,17 @@ function QuestionOption({ option, setIsTurnedOver }) {
   }
 }
 
-export default function QuestionOpen({ question, answer }) {
+export default function QuestionOpen({
+  question,
+  answer,
+  setTitleStyle,
+  setIsOpen,
+  setIsAnswer,
+  setStatusBar,
+  statusBar,
+}) {
   const [isTurnedOver, setIsTurnedOver] = React.useState(true);
-  console.log(isTurnedOver);
+
   return (
     <>
       {isTurnedOver ? (
@@ -52,7 +109,15 @@ export default function QuestionOpen({ question, answer }) {
         <span className={"question-content"}>{answer}</span>
       )}
 
-      <QuestionOption option={isTurnedOver} setIsTurnedOver={setIsTurnedOver} />
+      <QuestionOption
+        option={isTurnedOver}
+        setIsTurnedOver={setIsTurnedOver}
+        setTitleStyle={setTitleStyle}
+        setIsOpen={setIsOpen}
+        setIsAnswer={setIsAnswer}
+        setStatusBar={setStatusBar}
+        statusBar={statusBar}
+      />
     </>
   );
 }

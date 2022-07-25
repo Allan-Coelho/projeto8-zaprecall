@@ -1,6 +1,6 @@
 .question {
-  min-width: 300px;
-  max-width: 567px;
+  width: 300px;
+  /* max-width: 567px; */
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
@@ -30,7 +30,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 360px;
-  margin-top: 50px;
 }
 
+@media (min-width: 1024px) {
+    .question{
+        width: 567px;
+    }
+}
